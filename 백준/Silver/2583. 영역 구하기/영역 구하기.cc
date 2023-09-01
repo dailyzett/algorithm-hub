@@ -44,13 +44,9 @@ int main()
     for (int i = 0; i < k; i++)
     {
         cin >> lx >> ly >> rx >> ry;
-        ly = m - ly;
-        ry = m - ry;
-        for (int sy = ry; sy < ly; sy++)
-        {
-            for (int ex = lx; ex < rx; ex++)
-            {
-                square[sy][ex] = 1;
+        for(int x=lx; x<rx; x++) {
+            for(int y=ly; y<ry; y++) {
+                square[y][x] = 1;
             }
         }
     }
