@@ -20,7 +20,7 @@ bool isMatch() {
 }
 
 void go(int here, int level) {
-    if (level > 3) {
+    if (level > 3 || level >= ret) {
         return;
     }
 
