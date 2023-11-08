@@ -1,41 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int y, x, k;
-string s;
+int r, c, k;
+int a[12][12], visited[12][12];
 int dy[] = {-1, 0, 1, 0};
 int dx[] = {0, 1, 0, -1};
-int visited[10][10];
-char a[10][10];
+int ret;
 
-int go(int paramY, int paramX) {
-    if (paramY == 0 && paramX == x - 1) {
-        if (visited[paramY][paramX] == k) return 1;
-        return 0;
+int go(int y, int x) {
+    if (y == 0 && x == c - 1) {
+        if (visited[y][x] == k)
+            return 1;
+        else
+            return 0;
     }
 
-    int ret = 0;
     for (int i = 0; i < 4; i++) {
-        int ny = dy[i] + paramY;
-        int nx = dx[i] + paramX;
-        if (ny >= y || ny < 0 || nx >= x || nx < 0 || visited[ny][nx] || a[ny][nx] == 'T') continue;
-        visited[ny][nx] = visited[paramY][paramX] + 1;
+        int ny = dy[i] + y;
+        int nx = dx[i] + x;
+        if (ny >= r || nx >= c || ny < 0 || nx < 0 || visited[ny][nx] || a[ny][nx] == 'T') continue;
+        visited[ny][nx] = visited[y][x] + 1;
         ret += go(ny, nx);
         visited[ny][nx] = 0;
     }
-    return ret;
+    return 0;
 }
 
 int main() {
-    cin >> y >> x >> k;
-    for (int i = 0; i < y; i++) {
+    cin >> r >> c >> k;
+    for (int i = 0; i < r; i++) {
+        string s;
         cin >> s;
-        for (int j = 0; j < x; j++) {
+        for (int j = 0; j < c; j++) {
             a[i][j] = s[j];
         }
     }
-    visited[y - 1][0] = 1;
-    cout << go(y - 1, 0) << '\n';
 
+    visited[r - 1][0] = 1;
+    go(r - 1, 0);
+    cout << ret << '\n';
     return 0;
 }
