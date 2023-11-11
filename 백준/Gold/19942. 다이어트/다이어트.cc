@@ -41,12 +41,11 @@ int main() {
         }
     }
 
-    if (retPrice == INT_MAX) {
+    if (retPrice == INT_MAX)
         cout << "-1";
-    } else {
+    else {
         sort(retMap[retPrice].begin(), retMap[retPrice].end());
         cout << retPrice << '\n';
         for (int a : retMap[retPrice][0]) cout << a << " ";
     }
-    return 0;
 }
