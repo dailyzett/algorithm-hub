@@ -8,19 +8,19 @@ int visited[1004];
 void dfs(int here) {
     visited[here] = 1;
     for (int there : adj[here]) {
-        if (visited[there] == 0) dfs(there);
+        if (!visited[there]) dfs(there);
     }
     return;
 }
+
 int main() {
     cin >> t;
-    for (int i = 0; i < t; i++) {
+    while (t--) {
         for (int i = 0; i < 1004; i++) adj[i].clear();
         fill(visited, visited + 1004, 0);
-
         cin >> n >> m;
         int cnt = 0;
-        for (int j = 0; j < m; j++) {
+        for (int i = 0; i < m; i++) {
             int a, b;
             cin >> a >> b;
             adj[a].push_back(b);
@@ -28,7 +28,7 @@ int main() {
         }
 
         for (int i = 1; i <= n; i++) {
-            if (visited[i] == 0) {
+            if (!visited[i]) {
                 dfs(i);
                 cnt++;
             }
@@ -39,5 +39,4 @@ int main() {
         else
             cout << "graph" << '\n';
     }
-    return 0;
 }
