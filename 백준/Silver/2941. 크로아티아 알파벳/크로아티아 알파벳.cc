@@ -6,7 +6,7 @@ int main() {
     string s;
     cin >> s;
 
-    for (string& c : a) {
+    for (string c : a) {
         while (s.find(c) != string::npos) {
             s.replace(s.find(c), c.length(), "@");
         }
