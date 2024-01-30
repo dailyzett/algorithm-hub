@@ -1,43 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-string s;
-string boom;
-char ret[1000001];
+string input, boom;
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
 
-    string replaced = "";
+    cin >> input >> boom;
+    stack<char> st;
 
-    cin >> s;
-    cin >> boom;
+    for (int i = 0; i < input.size(); i++) {
+        st.push(input[i]);
 
-    int idx = 0;
-    for (int i = 0; i < s.length(); i++) {
-        ret[idx++] = s[i];
-
-        if (ret[idx - 1] == boom[boom.size() - 1]) {
-            if (idx < boom.size()) continue;
-
-            bool isBoom = true;
-            for (int j = 0; j < boom.size(); j++) {
-                if (boom[j] != ret[idx - boom.size() + j]) {
-                    isBoom = false;
-                    break;
+        if (st.size() >= boom.size() && st.top() == boom[boom.size() - 1]) {
+            string temp = "";
+            for (char c : boom) {
+                temp += st.top();
+                st.pop();
+            }
+            reverse(temp.begin(), temp.end());
+            if (temp != boom) {
+                for (char c : temp) {
+                    st.push(c);
                 }
             }
-
-            if (isBoom) idx -= boom.size();
         }
     }
 
-    if (!idx)
-        cout << "FRULA";
-    else {
-        for (int i = 0; i < idx; i++) {
-            cout << ret[i];
+    if (st.empty()) {
+        cout << "FRULA" << '\n';
+    } else {
+        string ret = "";
+        while (st.size()) {
+            ret += st.top();
+            st.pop();
         }
+        reverse(ret.begin(), ret.end());
+        cout << ret << '\n';
     }
+
     return 0;
 }
