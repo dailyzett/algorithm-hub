@@ -1,22 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, k, multitab[104], visited[104], cnt;
+int n, k, ret;
+int mul[101], visited[101];
 vector<int> v;
 int main() {
     cin >> n >> k;
     for (int i = 0; i < k; i++) {
-        cin >> multitab[i];
+        cin >> mul[i];
     }
 
     for (int i = 0; i < k; i++) {
-        if (!visited[multitab[i]]) {
+        if (!visited[mul[i]]) {
             if (v.size() == n) {
-                int last_index = 0, pos;
+                int last_index = 0;
+                int pos = 0;
                 for (int m : v) {
                     int here_index = INT_MAX;
                     for (int j = i + 1; j < k; j++) {
-                        if (m == multitab[j]) {
+                        if (m == mul[j]) {
                             here_index = j;
                             break;
                         }
@@ -28,13 +30,14 @@ int main() {
                     }
                 }
                 visited[pos] = 0;
-                cnt++;
+                ret++;
                 v.erase(find(v.begin(), v.end(), pos));
             }
 
-            v.push_back(multitab[i]);
-            visited[multitab[i]] = 1;
+            v.push_back(mul[i]);
+            visited[mul[i]] = 1;
         }
     }
-    cout << cnt << '\n';
+
+    cout << ret << '\n';
 }
