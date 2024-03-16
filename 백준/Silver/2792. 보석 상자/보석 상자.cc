@@ -1,28 +1,39 @@
-#include<bits/stdc++.h> 
-using namespace std;  
-#define first f
-#define second s  
-typedef long long ll;   
-ll n, m, a[300004], ret = 1e18;
-bool check(ll mid){
-    ll num = 0; 
-    for(int i = 0; i < m; i++){
-        num += a[i] / mid; 
-        if(a[i] % mid)num++; 
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+ll n, m;
+ll color[300001];
+ll ret = INT_MAX;
+
+bool check(ll mid) {
+    ll num = 0;
+    for (int i = 0; i < m; i++) {
+        num += color[i] / mid;
+        if (color[i] % mid) num++;
     }
-    return n >= num; 
+    return n >= num;
 }
-int main(){
-    cin >> n >> m; 
-    ll lo = 1, hi = 0, mid; 
-    for(int i = 0; i < m; i++) cin >> a[i], hi = max(hi, a[i]);
-    while(lo <= hi){
-        mid = (lo + hi) / 2; 
-        if(check(mid)){ 
-            ret = min(ret, mid); 
-            hi = mid - 1; 
-        }else lo = mid + 1; 
+
+int main() {
+    cin >> n >> m;
+    ll low = 1, high = 0, mid;
+    for (int i = 0; i < m; i++) {
+        cin >> color[i];
+        high = max(color[i], high);
     }
-    cout << ret << "\n"; 
+
+    while (low <= high) {
+        mid = (low + high) / 2;
+        if (check(mid)) {
+            ret = min(ret, mid);
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    cout << ret << '\n';
+
     return 0;
-} 
+}
