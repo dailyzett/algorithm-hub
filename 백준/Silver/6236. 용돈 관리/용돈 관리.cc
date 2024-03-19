@@ -1,17 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m;
+int n, m, low, high, mid, ret;
 int a[100001];
-int low, high, mid, ret;
 
 bool check(int mid) {
     int cnt = 1;
     int temp = mid;
     for (int i = 0; i < n; i++) {
         if (mid - a[i] < 0) {
-            mid = temp;
             cnt++;
+            mid = temp;
         }
         mid -= a[i];
     }
@@ -22,7 +21,7 @@ int main() {
     cin >> n >> m;
     for (int i = 0; i < n; i++) {
         cin >> a[i];
-        low = max(low, a[i]);
+        low = max(a[i], low);
     }
     high = 1000000004;
 
@@ -31,8 +30,9 @@ int main() {
         if (check(mid)) {
             high = mid - 1;
             ret = mid;
-        } else
+        } else {
             low = mid + 1;
+        }
     }
 
     cout << ret << '\n';
