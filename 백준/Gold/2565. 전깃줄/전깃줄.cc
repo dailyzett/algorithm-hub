@@ -16,11 +16,10 @@ int main() {
     sort(p.begin(), p.end());
 
     for (int i = 0; i < n; i++) {
-        auto lowerPos = lower_bound(lis, lis + len, p[i].second);
-        if (*lowerPos == 0) {
-            len++;
-        }
-        *lowerPos = p[i].second;
+        auto pos = lower_bound(lis, lis + len, p[i].second);
+        if (*pos == 0) len++;
+        *pos = p[i].second;
     }
+
     cout << n - len << '\n';
 }
