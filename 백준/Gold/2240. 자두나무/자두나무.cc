@@ -1,17 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int t, w, a[1004];
-int dp[1001][31][2];
+int t, w;
+int jadu[1001];
+int dp[1001][2][31];
 
-int go(int idx, int cnt, int tree) {
-    if (idx == t) return (cnt == 0 ? 0 : -1e9);
+int go(int idx, int tree, int cnt) {
+    if (idx == t) return 0;
     if (cnt < 0) return -1e9;
 
-    int &ret = dp[idx][cnt][tree];
+    int &ret = dp[idx][tree][cnt];
     if (~ret) return ret;
 
-    ret = max(go(idx + 1, cnt, tree), go(idx + 1, cnt - 1, tree ^ 1)) + (tree == a[idx] - 1);
+    ret = max(go(idx + 1, tree, cnt), go(idx + 1, tree ^ 1, cnt - 1)) + (tree == jadu[idx] - 1);
     return ret;
 }
 
@@ -19,10 +20,10 @@ int main() {
     cin >> t >> w;
     memset(dp, -1, sizeof(dp));
     for (int i = 0; i < t; i++) {
-        cin >> a[i];
+        cin >> jadu[i];
     }
 
-    int ret = 0;
-    ret = max(go(0, w, 0), go(0, w - 1, 1));
+    int ret = max(go(0, 0, w), go(0, 1, w - 1));
     cout << ret << '\n';
+    return 0;
 }
