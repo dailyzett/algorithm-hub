@@ -2,47 +2,43 @@
 using namespace std;
 
 int n, m;
-int a[104][104];
-int visited[104][104];
-int dy[] = {-1, 0, 1, 0};
-int dx[] = {0, 1, 0, -1};
-int x, y;
+int a[101][101];
+int visited[101][101];
+int ret = 1;
 
-int main()
-{
+const int dy[] = {1, 0, -1, 0};
+const int dx[] = {0, 1, 0, -1};
+
+int main() {
     cin >> n >> m;
 
-    for (int i = 0; i < n; i++)
-    {
-        string input;
-        cin >> input;
-
-        for (int j = 0; j < m; j++)
-        {
-            a[i][j] = input[j] - '0';
+    string s;
+    for (int i = 0; i < n; i++) {
+        cin >> s;
+        for (int j = 0; j < s.length(); j++) {
+            a[i][j] = s[j] - '0';
         }
     }
 
     queue<pair<int, int>> q;
     q.push({0, 0});
     visited[0][0] = 1;
-
-    while (q.size())
-    {
-        tie(y, x) = q.front();
+    while (!q.empty()) {
+        int y = q.front().first;
+        int x = q.front().second;
         q.pop();
-        for (int i = 0; i < 4; i++)
-        {
+
+        for (int i = 0; i < 4; i++) {
             int ny = y + dy[i];
             int nx = x + dx[i];
-            if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 0)
-                continue;
-            if (visited[ny][nx])
-                continue;
-            visited[ny][nx] = visited[y][x] + 1;
+            if (ny < 0 || nx < 0 || ny >= n || nx >= m || visited[ny][nx]) continue;
+            if (a[ny][nx] == 0) continue;
+
             q.push({ny, nx});
+            visited[ny][nx] = visited[y][x] + 1;
         }
     }
 
-    cout << visited[n-1][m-1] << '\n';
+    cout << visited[n - 1][m - 1] << '\n';
+    return 0;
 }
