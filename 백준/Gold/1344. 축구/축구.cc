@@ -1,19 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-double a, b;
-double dp[20][20][20];
+const int N = 18;
+double A, B;
+double dp[N][N][N];
 bool isPrime[20];
 
-double go(int x, int y, int cnt) {
-    if (cnt == 18) return isPrime[x] || isPrime[y] ? 1.0 : 0.0;
-    double &ret = dp[x][y][cnt];
+double go(int idx, int a, int b) {
+    if (idx == N) {
+        if (isPrime[a] || isPrime[b]) {
+            return 1.0;
+        } else {
+            return 0.0;
+        }
+    }
+
+    double &ret = dp[idx][a][b];
     if (ret > -0.5) return ret;
+
     ret = 0.0;
-    ret += go(x, y, cnt + 1) * (1 - a) * (1 - b);
-    ret += go(x + 1, y, cnt + 1) * a * (1 - b);
-    ret += go(x, y + 1, cnt + 1) * (1 - a) * b;
-    ret += go(x + 1, y + 1, cnt + 1) * a * b;
+    ret += go(idx + 1, a, b) * (1 - A) * (1 - B);
+    ret += go(idx + 1, a + 1, b + 1) * A * B;
+    ret += go(idx + 1, a, b + 1) * (1 - A) * B;
+    ret += go(idx + 1, a + 1, b) * A * (1 - B);
     return ret;
 }
 
@@ -29,13 +38,10 @@ void era() {
 }
 
 int main() {
-    cin >> a >> b;
-
-    a /= 100;
-    b /= 100;
-
+    cin >> A >> B;
+    A /= 100;
+    B /= 100;
     memset(dp, -1, sizeof(dp));
     era();
-    double answer = go(0, 0, 0);
-    printf("%.6lf", answer);
+    cout << go(0, 0, 0);
 }
