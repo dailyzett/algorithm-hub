@@ -2,21 +2,14 @@
 using namespace std;
 
 int n, m;
-int a[2005];
-int dp[2005][2005];
+int a[2003];
+int dp[2003][2003];
 
 void fastIO() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
     return;
-}
-
-bool isPal(int s, int e) {
-    for (int i = 0; i <= (e - s) / 2; i++) {
-        if (a[s + i] != a[e - i]) return false;
-    }
-    return true;
 }
 
 int main() {
@@ -42,8 +35,9 @@ int main() {
 
     cin >> m;
     for (int i = 0; i < m; i++) {
-        int s, e;
-        cin >> s >> e;
-        cout << dp[s][e] << '\n';
+        int start, end;
+        cin >> start >> end;
+        cout << dp[start][end] << '\n';
     }
+    return 0;
 }
