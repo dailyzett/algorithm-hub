@@ -4,16 +4,10 @@ using namespace std;
 int a[100001], n, s, visited[100001], ret;
 
 void go(int idx) {
-    if (visited[idx]) return;
+    if (idx < 1 || idx > n || visited[idx]) return;
     visited[idx] = 1;
-    if (idx - a[idx] >= 1) {
-        go(idx - a[idx]);
-    }
-
-    if (idx + a[idx] <= n) {
-        go(idx + a[idx]);
-    }
-    return;
+    go(idx - a[idx]);
+    go(idx + a[idx]);
 }
 
 int main() {
