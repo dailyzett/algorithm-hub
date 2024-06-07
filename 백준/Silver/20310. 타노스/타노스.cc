@@ -15,12 +15,27 @@ int main() {
     zero_counter /= 2;
     one_counter /= 2;
 
-    for (int i = 0; i < zero_counter; i++) {
-        cout << '0';
+    int len = s.size() - 1;
+    bool is_removed[502] = {false};
+    while (zero_counter) {
+        if (s[len] == '0') {
+            zero_counter--;
+            is_removed[len] = true;
+        }
+        len--;
     }
-    for (int i = 0; i < one_counter; i++) {
-        cout << '1';
+
+    len = 0;
+    while (one_counter) {
+        if (s[len] == '1') {
+            one_counter--;
+            is_removed[len] = true;
+        }
+        len++;
     }
-    cout << '\n';
+
+    for (int i = 0; i < s.size(); i++) {
+        if (!is_removed[i]) cout << s[i];
+    }
     return 0;
 }
